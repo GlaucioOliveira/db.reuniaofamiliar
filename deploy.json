@@ -1,0 +1,5 @@
+{
+  "service": "gm.reuniaofamiliar.service",
+  "path": "/home/glaucio/node/db.noitefamiliar/",
+  "command": "/usr/bin/node /home/glaucio/node/db.noitefamiliar/index.js"
+}
