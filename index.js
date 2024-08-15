@@ -44,12 +44,12 @@ app.use(async (req, res, next) => {
 
 // Create
 app.post(`${apiBase}`, async (req, res) => {
-    const {datareuniaoStr, dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, regras_de_fe_str} = req.body;
+    const {datareuniaoStr, dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, regras_de_fe_str, tipo_hinario} = req.body;
 
-  const sql = 'INSERT INTO reuniao (datareuniao, dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, regras_de_fe) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const sql = 'INSERT INTO reuniao (datareuniao, dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, regras_de_fe, tipo_hinario) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
   try{
-    await req.db.query(sql, [datareuniaoStr, dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, regras_de_fe_str], (err, result) => {
+    await req.db.query(sql, [datareuniaoStr, dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, regras_de_fe_str, tipo_hinario], (err, result) => {
       if (err) {
         console.error('Error creating meeting: ', err);
         res.status(500).send({message: 'Error creating meeting'});
@@ -65,13 +65,13 @@ app.post(`${apiBase}`, async (req, res) => {
 
 app.put(`${apiBase}:id`, async (req, res) => {
     const id = req.params.id;
-    const {dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, regras_de_fe_str} = req.body;
-    const sql = 'UPDATE reuniao SET dirigidapor = ?, presididapor = ?, primeiro_hino = ?, primeira_oracao = ?, mensagem = ?, ultima_oracao = ?, numero = ?, anuncio = ?, observacao = ?, primeiro_hino_nome = ?, modifiedon = ?, regras_de_fe = ? WHERE Id = ?';
+    const {dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, regras_de_fe_str, tipo_hinario} = req.body;
+    const sql = 'UPDATE reuniao SET dirigidapor = ?, presididapor = ?, primeiro_hino = ?, primeira_oracao = ?, mensagem = ?, ultima_oracao = ?, numero = ?, anuncio = ?, observacao = ?, primeiro_hino_nome = ?, modifiedon = ?, regras_de_fe = ?, tipo_hinario = ? WHERE Id = ?';
 
     const modifiedon = new Date();
 
     try{
-      await req.db.query(sql, [dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, modifiedon, regras_de_fe_str, id], (err, result) => {
+      await req.db.query(sql, [dirigidapor, presididapor, primeiro_hino, primeira_oracao, mensagem, ultima_oracao, numero, anuncio, observacao, primeiro_hino_nome, modifiedon, regras_de_fe_str, tipo_hinario, id], (err, result) => {
         if (err) {
           console.error('Error getting meeting: ', err);
           res.status(500).send({message: 'Error getting meeting'});
